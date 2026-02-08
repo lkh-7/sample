@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding - 코딩의 리듬을 느껴보세요</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #a855f7;
+            --accent: #fbbf24;
+            --dark: #1e293b;
+            --dark-purple: #334155;
+            --mid-dark: #475569;
+            --text-light: #f1f5f9;
+            --glow: rgba(0, 212, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #cbd5e1 0%, #e0e7ff 50%, #ddd6fe 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px var(--glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #1e293b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-text p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 2.5rem;
+            color: #475569;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        /* Visual Element */
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .code-window {
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-window::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .window-dots {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            display: flex;
+            gap: 8px;
+            z-index: 1;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot:nth-child(1) { background: #ff5f56; }
+        .dot:nth-child(2) { background: #ffbd2e; }
+        .dot:nth-child(3) { background: #27c93f; }
+
+        .code-content {
+            margin-top: 40px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .code-line {
+            opacity: 0;
+            animation: typeIn 0.5s ease forwards;
+        }
+
+        .code-line:nth-child(1) { animation-delay: 1.2s; }
+        .code-line:nth-child(2) { animation-delay: 1.4s; }
+        .code-line:nth-child(3) { animation-delay: 1.6s; }
+        .code-line:nth-child(4) { animation-delay: 1.8s; }
+        .code-line:nth-child(5) { animation-delay: 2s; }
+        .code-line:nth-child(6) { animation-delay: 2.2s; }
+
+        @keyframes typeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .keyword { color: #ff79c6; }
+        .function { color: #50fa7b; }
+        .string { color: #f1fa8c; }
+        .comment { color: #6272a4; }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #64748b;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2rem;
+            min-height: 600px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 280px;
+        }
+
+        .feature-card.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 5%;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .stat-item.visible {
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 5%;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: #64748b;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #1e293b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 568px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                min-height: auto;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Cute Panda Character */
+        .panda-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            animation: pandaBounce 3s ease-in-out infinite;
+        }
+
+        .panda {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .panda:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .panda-head {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .panda-ear {
+            width: 25px;
+            height: 25px;
+            background: #2d3748;
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+        }
+
+        .panda-ear.left {
+            left: 10px;
+        }
+
+        .panda-ear.right {
+            right: 10px;
+        }
+
+        .panda-eye {
+            width: 20px;
+            height: 25px;
+            background: #2d3748;
+            border-radius: 50%;
+            position: absolute;
+            top: 35px;
+        }
+
+        .panda-eye.left {
+            left: 20px;
+            transform: rotate(-10deg);
+        }
+
+        .panda-eye.right {
+            right: 20px;
+            transform: rotate(10deg);
+        }
+
+        .panda-eye-white {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 45px;
+            animation: blink 3s infinite;
+        }
+
+        .panda-eye-white.left {
+            left: 26px;
+        }
+
+        .panda-eye-white.right {
+            right: 26px;
+        }
+
+        .panda-nose {
+            width: 12px;
+            height: 10px;
+            background: #2d3748;
+            border-radius: 0 0 50% 50%;
+            position: absolute;
+            top: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .panda-mouth {
+            width: 30px;
+            height: 15px;
+            border: 3px solid #2d3748;
+            border-top: none;
+            border-radius: 0 0 50% 50%;
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .panda-body {
+            width: 60px;
+            height: 50px;
+            background: white;
+            border-radius: 50% 50% 40% 40%;
+            position: absolute;
+            bottom: 10px;
+            left: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .panda-arm {
+            width: 18px;
+            height: 40px;
+            background: #2d3748;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 25px;
+        }
+
+        .panda-arm.left {
+            left: 22px;
+            transform: rotate(-20deg);
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        .panda-arm.right {
+            right: 22px;
+            transform: rotate(20deg);
+        }
+
+        .panda-leg {
+            width: 22px;
+            height: 25px;
+            background: #2d3748;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+        }
+
+        .panda-leg.left {
+            left: 30px;
+        }
+
+        .panda-leg.right {
+            right: 30px;
+        }
+
+        .panda-belly {
+            width: 40px;
+            height: 35px;
+            background: #f7fafc;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+        }
+
+        @keyframes pandaBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(-20deg);
+            }
+            50% {
+                transform: rotate(-40deg);
+            }
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 0;
+            }
+        }
+
+        .panda-speech {
+            position: absolute;
+            top: -60px;
+            right: -20px;
+            background: white;
+            padding: 12px 18px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+            color: #2d3748;
+            white-space: nowrap;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .panda-speech::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 30px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid white;
+        }
+
+        .panda:hover .panda-speech {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (max-width: 768px) {
+            .panda-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .panda {
+                width: 80px;
+                height: 80px;
+            }
+
+            .panda-head {
+                width: 55px;
+                height: 55px;
+                top: 12px;
+                left: 12px;
+            }
+
+            .panda-ear {
+                width: 18px;
+                height: 18px;
+                top: 8px;
+            }
+
+            .panda-eye {
+                width: 14px;
+                height: 18px;
+                top: 22px;
+            }
+
+            .panda-eye.left {
+                left: 12px;
+            }
+
+            .panda-eye.right {
+                right: 12px;
+            }
+
+            .panda-body {
+                width: 40px;
+                height: 35px;
+                bottom: 8px;
+                left: 20px;
+            }
+
+            .panda-arm {
+                width: 12px;
+                height: 28px;
+                bottom: 18px;
+            }
+
+            .panda-arm.left {
+                left: 14px;
+            }
+
+            .panda-arm.right {
+                right: 14px;
+            }
+
+            .panda-speech {
+                font-size: 0.75rem;
+                padding: 8px 12px;
+                top: -50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <nav>
+        <div class="container">
+            <div class="logo">VIBE CODING</div>
+            <ul class="nav-links">
+                <li><a href="#home">홈</a></li>
+                <li><a href="#features">특징</a></li>
+                <li><a href="#stats">통계</a></li>
+                <li><a href="#start">시작하기</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    코딩의 새로운 <span class="gradient-text">리듬</span>을 느껴보세요
+                </h1>
+                <p>
+                    바이브 코딩은 당신의 코딩 경험을 완전히 새로운 차원으로 끌어올립니다. 
+                    음악처럼 흐르는 코드, 리듬처럼 맞아떨어지는 로직을 경험하세요.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#start" class="btn btn-primary">지금 시작하기</a>
+                    <a href="#features" class="btn btn-secondary">더 알아보기</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="window-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="keyword">const</span> <span class="function">vibeCoding</span> = <span class="keyword">=></span> {</div>
+                        <div class="code-line">  <span class="comment">// 코딩이 음악이 되는 순간</span></div>
+                        <div class="code-line">  <span class="keyword">return</span> <span class="string">'창의성'</span> + <span class="string">'효율성'</span>;</div>
+                        <div class="code-line">};</div>
+                        <div class="code-line"></div>
+                        <div class="code-line"><span class="function">vibeCoding</span>(); <span class="comment">// ✨ 마법이 시작됩니다</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="section-title">
+            <h2><span class="gradient-text">특별한 기능들</span></h2>
+            <p>코딩을 더 즐겁고 효율적으로 만드는 혁신적인 기능</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <h3>리듬 기반 코딩</h3>
+                <p>음악의 리듬에 맞춰 코드를 작성하세요. 당신의 코딩 스타일에 맞는 완벽한 템포를 찾아드립니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>실시간 협업</h3>
+                <p>팀원들과 함께 실시간으로 코드를 작성하고 공유하세요. 완벽한 하모니를 이루는 협업 경험을 제공합니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>커스텀 테마</h3>
+                <p>당신만의 스타일로 IDE를 꾸미세요. 무한한 커스터마이징 옵션으로 완벽한 개발 환경을 만들 수 있습니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>초고속 성능</h3>
+                <p>최적화된 엔진으로 지연 없는 부드러운 코딩 경험을 제공합니다. 생산성을 극대화하세요.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>AI 어시스턴트</h3>
+                <p>똑똑한 AI가 당신의 코딩을 돕습니다. 실시간 제안과 자동 완성으로 개발 속도를 높이세요.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>강력한 보안</h3>
+                <p>엔터프라이즈급 보안으로 당신의 코드를 안전하게 보호합니다. 걱정 없이 개발에만 집중하세요.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">활성 사용자</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1M+</div>
+                <div class="stat-label">작성된 코드</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">가동률</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">고객 지원</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="start" class="cta-section">
+        <div class="cta-content">
+            <h2>지금 바로 <span class="gradient-text">시작하세요</span></h2>
+            <p>무료로 시작하고 언제든지 업그레이드하세요. 신용카드 필요 없습니다.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">무료로 시작하기</a>
+                <a href="#" class="btn btn-secondary">데모 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">VIBE CODING</div>
+            <ul class="footer-links">
+                <li><a href="#">프라이버시</a></li>
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#">문의하기</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="#" aria-label="GitHub">G</a>
+                <a href="#" aria-label="Twitter">T</a>
+                <a href="#" aria-label="LinkedIn">L</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="panda-container">
+        <div class="panda">
+            <div class="panda-speech">코딩하자! 🎵</div>
+            <div class="panda-head">
+                <div class="panda-ear left"></div>
+                <div class="panda-ear right"></div>
+                <div class="panda-eye left"></div>
+                <div class="panda-eye right"></div>
+                <div class="panda-eye-white left"></div>
+                <div class="panda-eye-white right"></div>
+                <div class="panda-nose"></div>
+                <div class="panda-mouth"></div>
+            </div>
+            <div class="panda-body">
+                <div class="panda-belly"></div>
+            </div>
+            <div class="panda-arm left"></div>
+            <div class="panda-arm right"></div>
+            <div class="panda-leg left"></div>
+            <div class="panda-leg right"></div>
+        </div>
+    </div>
+
+    <script>
+        // Panda click interaction
+        const panda = document.querySelector('.panda');
+        const pandaSpeech = document.querySelector('.panda-speech');
+        const messages = [
+            '코딩하자! 🎵',
+            '화이팅! 💪',
+            '잘하고 있어요! ✨',
+            '쉬어가도 돼요~ 🌟',
+            '멋진 코드네요! 🚀'
+        ];
+        let messageIndex = 0;
+
+        panda.addEventListener('click', () => {
+            messageIndex = (messageIndex + 1) % messages.length;
+            pandaSpeech.textContent = messages[messageIndex];
+            panda.style.animation = 'none';
+            setTimeout(() => {
+                panda.style.animation = '';
+            }, 10);
+        });
+
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Observe stats
+        document.querySelectorAll('.stat-item').forEach((stat, index) => {
+            stat.style.animationDelay = `${index * 0.15}s`;
+            observer.observe(stat);
+        });
+
+        // Smooth scroll with offset for fixed nav
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Number counter animation for stats
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = formatNumber(target);
+                    clearInterval(timer);
+                } else {
+                    element.textContent = formatNumber(Math.floor(current));
+                }
+            }, 20);
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M+';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(0) + 'K+';
+            }
+            return num.toString();
+        }
+
+        // Trigger counter animation when stats are visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                    entry.target.classList.add('animated');
+                    const number = entry.target.querySelector('.stat-number');
+                    const text = number.textContent;
+                    
+                    if (text.includes('K')) {
+                        const value = parseFloat(text) * 1000;
+                        number.textContent = '0';
+                        animateCounter(number, value);
+                    } else if (text.includes('M')) {
+                        const value = parseFloat(text) * 1000000;
+                        number.textContent = '0';
+                        animateCounter(number, value);
+                    } else if (text === '99.9%') {
+                        let current = 0;
+                        const timer = setInterval(() => {
+                            current += 0.5;
+                            if (current >= 99.9) {
+                                number.textContent = '99.9%';
+                                clearInterval(timer);
+                            } else {
+                                number.textContent = current.toFixed(1) + '%';
+                            }
+                        }, 20);
+                    } else if (text === '24/7') {
+                        number.textContent = '24/7';
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-item').forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-visual');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Add active state to nav links based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    navLink?.classList.add('active');
+                } else {
+                    navLink?.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
