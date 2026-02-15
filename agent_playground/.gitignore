@@ -1,0 +1,6 @@
+.env 
+node_modules/ 
+.claude/
+__pycache__/
+*.dmp
+temp/

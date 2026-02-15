@@ -1,0 +1,16 @@
+﻿{
+  "project": "agent-playground",
+  "version": "1.0.0",
+  "description": "Claude Code Agent 테스트 프로젝트",
+  "author": "바이브 프로젝트",
+  "features": [
+    "파일 정리 자동화",
+    "안전한 테스트 환경",
+    "Agent 기능 학습"
+  ],
+  "settings": {
+    "autoOrganize": true,
+    "safeMode": true,
+    "logActions": true
+  }
+}
