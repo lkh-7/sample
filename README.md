@@ -1,1 +1,1 @@
-# sample
+claude code 연습용
